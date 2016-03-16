@@ -77,7 +77,7 @@ impl<'a> fmt::Debug for ValueList<'a> {
     }
 }
 
-#[derive(Eq, PartialEq, Clone, Hash)]
+#[derive(Eq, PartialEq, Clone, Copy, Hash)]
 pub struct ValueID {
     home_id: u32,
     id: u64

@@ -91,7 +91,7 @@ impl Node {
 
     pub fn get_basic(&self) -> Option<NodeBasic> {
         let manager_ptr = unsafe { extern_manager::get() };
-        NodeBasic::from_u8(unsafe { extern_manager::get_node_basic(manager_ptr, self.home_id, self.node_id)} )
+        NodeBasic::from_u8(unsafe { extern_manager::get_node_basic(manager_ptr, self.home_id, self.node_id) })
     }
 
     pub fn get_neighbors(&self) -> Option<Vec<Node>> {
@@ -142,12 +142,13 @@ impl fmt::Display for Node {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         f.pad(&format!("{:3} {:17} {:30} {:50} {:30} {:30}",
                       self.get_id(),
-                      self.get_basic().map_or(String::from("unknown"), |basic| format!("{}", basic)),
+                      self.get_basic().map_or(String::from("unknown"), |basic| basic.to_string()),
                       self.get_type(),
                       self.get_product_name(),
                       self.get_name(),
                       self.get_location()
-                      ))
+                      )
+              )
     }
 }
 
@@ -196,7 +197,8 @@ impl fmt::Debug for Node {
                join(self.get_neighbors()
                         .unwrap_or(Vec::new())
                         .iter()
-                        .map(|node: &Node| node.simple_debug()), ", ")
+                        .map(|node: &Node| node.simple_debug()),
+                    ", ")
         )
     }
 }
